@@ -1,7 +1,23 @@
 export const staticRoutes = [
 	{
 		path: '/',
-		redirect: '/home'
+		redirect: '/layout'
+	},
+	{
+		path: '/layout',
+		name: 'layout',
+		redirect: '/layout/home',
+		component: () => import('@/layouts/index.vue'),
+		children: [
+			{
+				path: 'home',
+				name: 'home',
+				component: () => import('@/views/home/index.vue'),
+				meta: {
+					title: '后台首页'
+				}
+			}
+		]
 	},
 	{
 		path: '/login',
@@ -9,14 +25,6 @@ export const staticRoutes = [
 		component: () => import('@/views/Login/index.vue'),
 		meta: {
 			title: '登录页'
-		}
-	},
-	{
-		path: '/home',
-		name: 'home',
-		component: () => import('@/views/home/index.vue'),
-		meta: {
-			title: '后台首页'
 		}
 	}
 ];

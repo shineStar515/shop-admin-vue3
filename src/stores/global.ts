@@ -1,31 +1,29 @@
 import { defineStore } from 'pinia'
 
 import { getLoginInfo, getUserInfo, logoutInfo } from '@/service/api/login'
-import type { IUser } from '@/service/api/login/types'
+import type { ILogin } from '@/service/api/login/types'
 import { getToken, setToken } from '@/utils/authToken'
 import router from '@/router'
+import type { IGlobalStore } from '@/stores/types'
 
 const useGlobalStore = defineStore('global', {
-	state: () => ({
+	state: (): IGlobalStore => ({
 		shopAdminToken: '',
-		userInfo: {
-			menus: []
-		}
+		userInfo: { menus: [] }
 	}),
 	actions: {
 		//登录信息
-		async loginRequestAction(loginInfo: IUser.LoginInfo) {
+		async loginRequestAction(loginInfo: ILogin.LoginInfo) {
 			const { data } = await getLoginInfo(loginInfo)
 			setToken(data.token)
 			this.shopAdminToken = getToken()
 			await this.userInfoRequestAction()
-			await router.push('/home')
+			await router.push('/layout')
 		},
 		//用户信息
 		async userInfoRequestAction() {
 			const { data: userInfo } = await getUserInfo()
-			console.log(userInfo)
-			this.userInfo = userInfo as any
+			this.userInfo = userInfo
 		},
 		//退出登录
 		async logoutRequestAction() {

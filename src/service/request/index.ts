@@ -1,18 +1,19 @@
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
-import axios from 'axios';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import type { IResultData } from '@/service/request/types'
 import { toast } from '@/utils/toast'
 import { getToken } from '@/utils/authToken'
 
 class myRequest {
-	instance: AxiosInstance;
+	instance: AxiosInstance
+
 	constructor(config: AxiosRequestConfig) {
-		this.instance = axios.create(config);
+		this.instance = axios.create(config)
 		//请求拦截器
 		this.instance.interceptors.request.use(
 			(config: AxiosRequestConfig) => {
 				// 获取token
-				const token = getToken();
+				const token = getToken()
 				if (token && config.headers && config.url != '/login') {
 					config!.headers['token'] = token;
 				}

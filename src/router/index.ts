@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { errorRoutes, staticRoutes } from '@/router/module/staticRoutes'
 import useGlobalStore from '@/stores/global'
 import { doneFullLoading, showFullLoading } from '@/utils/showFullLoading'
+import type { IUser } from '@/service/api/login/types'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,14 +15,14 @@ router.beforeEach(async (to, from, next) => {
 	//2.获取token userInfo
 	const globalStore = useGlobalStore()
 	const token = globalStore.shopAdminToken
-	const userInfo = globalStore.userInfo
+	const userInfo: IUser.UserResult = globalStore.userInfo
 	//3.修改网页标题
 	let title = to.meta.title ? to.meta.title : '后台管理'
 	document.title = title as string
 	//4.路由判断
 	if (to.path === '/login' && token) return next({ path: from.path, replace: true })
 	if (to.path === '/login' && !token) return next()
-	if (to.path !== '/login' && !userInfo.menus.length && token) {
+	if (to.path !== '/login' && !userInfo?.menus?.length && token) {
 		await globalStore.userInfoRequestAction()
 		return next({ path: from.path, replace: true })
 	}

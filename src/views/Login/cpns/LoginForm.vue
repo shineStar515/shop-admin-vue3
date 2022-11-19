@@ -20,18 +20,18 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from 'element-plus';
-import { ElNotification } from 'element-plus';
-import { Lock, User } from '@element-plus/icons-vue';
-import { onMounted, reactive, ref } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElNotification } from 'element-plus'
+import { Lock, User } from '@element-plus/icons-vue'
+import { onMounted, reactive, ref } from 'vue'
 import useGlobalStore from '@/stores/global'
 import { toast } from '@/utils/toast'
 
 const loginForm = reactive({
 	username: 'admin',
 	password: 'admin'
-});
-const loginFormRef = ref<FormInstance>();
+})
+const loginFormRef = ref<FormInstance>()
 const loginFormRules = reactive<FormRules>({
 	username: [
 		{ required: true, message: '请输入用户名', trigger: 'blur' },

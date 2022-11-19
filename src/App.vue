@@ -16,8 +16,10 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 
 <style lang="scss">
 body {
+	box-sizing: border-box;
 	width: 100vw;
 	height: 100vh;
+
 	#app {
 		width: 100%;
 		height: 100%;
