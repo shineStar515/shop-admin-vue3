@@ -2,9 +2,9 @@ import { createApp } from 'vue';
 
 import 'element-plus/dist/index.css';
 import * as Icons from '@element-plus/icons-vue';
-import 'normalize.css';
-
-import pinia from '@/stores';
+import 'normalize.css'
+import 'nprogress/nprogress.css'
+import pinia from '@/stores'
 import App from './App.vue';
 import router from './router';
 

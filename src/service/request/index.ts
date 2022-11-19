@@ -1,8 +1,8 @@
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import type { IResultData } from '@/service/request/types';
-import { toast, toastEnum } from '@/utils/toast';
-import { getToken } from '@/utils/authToken';
+import type { IResultData } from '@/service/request/types'
+import { toast } from '@/utils/toast'
+import { getToken } from '@/utils/authToken'
 
 class myRequest {
 	instance: AxiosInstance;
@@ -19,7 +19,7 @@ class myRequest {
 				return config;
 			},
 			error => {
-				toast(toastEnum.error, '请求失败,请稍后重试!!!');
+				toast('error', '请求失败,请稍后重试!!!')
 				return Promise.reject(error);
 			}
 		);
@@ -29,7 +29,7 @@ class myRequest {
 				return res.data;
 			},
 			error => {
-				toast(toastEnum.error, '请求失败,请稍后重试!!!');
+				toast('error', '请求失败,请稍后重试!!!')
 				return Promise.reject(error);
 			}
 		);

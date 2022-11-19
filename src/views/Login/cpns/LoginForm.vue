@@ -24,9 +24,8 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { ElNotification } from 'element-plus';
 import { Lock, User } from '@element-plus/icons-vue';
 import { onMounted, reactive, ref } from 'vue';
-import useGlobalStore from '@/stores/global';
-import { toast, toastEnum } from '@/utils/toast';
-import { useRouter } from 'vue-router';
+import useGlobalStore from '@/stores/global'
+import { toast } from '@/utils/toast'
 
 const loginForm = reactive({
 	username: 'admin',
@@ -47,10 +46,8 @@ const loginFormRules = reactive<FormRules>({
 	]
 });
 const globalStore = useGlobalStore();
-const router = useRouter();
 const loading = ref(false);
 function handleLoginClick(formEl: FormInstance) {
-	console.log(0);
 	if (!formEl) return;
 	formEl.validate(valid => {
 		if (valid) {
@@ -66,14 +63,13 @@ function handleLoginClick(formEl: FormInstance) {
 						message: '登录成功',
 						type: 'success'
 					});
-					router.push('/home');
 				})
 				.catch(() => {
-					loading.value = false;
-					toast(toastEnum.error, '用户名或密码错误');
+					loading.value = false
+					toast('error', '用户名或密码错误')
 				});
 		} else {
-			toast(toastEnum.warning, '请输入用户名和密码');
+			toast('warning', '请输入用户名和密码')
 		}
 	});
 }

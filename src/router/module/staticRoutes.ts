@@ -1,22 +1,28 @@
 export const staticRoutes = [
 	{
 		path: '/',
-		redirect: '/login'
+		redirect: '/home'
 	},
 	{
 		path: '/login',
 		name: 'login',
-		component: () => import('@/views/Login/index.vue')
+		component: () => import('@/views/Login/index.vue'),
+		meta: {
+			title: '登录页'
+		}
 	},
 	{
 		path: '/home',
 		name: 'home',
-		component: () => import('@/views/home/index.vue')
+		component: () => import('@/views/home/index.vue'),
+		meta: {
+			title: '后台首页'
+		}
 	}
 ];
 export const errorRoutes = [
 	{
-		path: '/404',
+		path: '/:pathMatch(.*)*',
 		component: () => import('@/components/ErrorMessage/404.vue')
 	},
 	{

@@ -11,5 +11,11 @@ export function getLoginInfo(loginData: IUser.LoginInfo) {
 export function getUserInfo() {
 	return myRequest.post({
 		url: '/getinfo'
-	});
+	})
+}
+
+export function logoutInfo() {
+	return myRequest.post({
+		url: '/logout'
+	})
 }

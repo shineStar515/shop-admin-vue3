@@ -22,12 +22,18 @@ body {
 		width: 100%;
 		height: 100%;
 	}
+
 	.app {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		width: 100%;
 		height: 100%;
+	}
+
+	#nprogress .bar {
+		background-color: #31d8ed !important;
+		height: 3px;
 	}
 }
 </style>
