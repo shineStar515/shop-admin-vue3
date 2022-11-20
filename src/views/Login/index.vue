@@ -10,16 +10,18 @@
 		</el-row>
 	</div>
 </template>
-<script lang="ts" setup>
-import LoginForm from '@/views/Login/cpns/LoginForm.vue';
+<script lang='ts' setup name='login'>
+import LoginForm from '@/views/Login/cpns/LoginForm.vue'
 </script>
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .login {
 	width: 100%;
 	height: 100%;
+
 	.login-content {
 		width: 100%;
 		height: 100%;
+
 		.login-left,
 		.login-right {
 			display: flex;

@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
-
-import { getLoginInfo, getUserInfo, logoutInfo } from '@/service/api/login'
-import type { ILogin } from '@/service/api/login/types'
-import { getToken, setToken } from '@/utils/authToken'
 import router from '@/router'
+import { getLoginInfo, getUserInfo, logoutInfo, updatePassword } from '@/service/api/login'
+import { getToken, setToken } from '@/utils/authToken'
+import type { ILogin } from '@/service/api/login/types'
 import type { IGlobalStore } from '@/stores/types'
 
 const useGlobalStore = defineStore('global', {
@@ -28,6 +27,10 @@ const useGlobalStore = defineStore('global', {
 		//退出登录
 		async logoutRequestAction() {
 			await logoutInfo()
+		},
+		//修改密码
+		async updatePasswordRequestAction(updateData: ILogin.UpdatePasswordInfo) {
+			await updatePassword(updateData)
 		}
 	},
 	persist: { key: 'global' }

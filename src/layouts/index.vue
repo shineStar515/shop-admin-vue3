@@ -22,7 +22,7 @@
 		</el-container>
 	</div>
 </template>
-<script lang='ts' setup>
+<script lang='ts' setup name='layout'>
 import Header from '@/layouts/components/Header/index.vue'
 import Menu from '@/layouts/components/Menu/index.vue'
 import TagList from '@/layouts/components/TagList/index.vue'

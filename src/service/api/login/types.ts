@@ -10,6 +10,13 @@ export namespace ILogin {
 	export interface LoginResult {
 		token: string;
 	}
+
+	//修改密码
+	export interface UpdatePasswordInfo {
+		oldpassword: string;
+		password: string;
+		repassword: string;
+	}
 }
 /* 用户信息 */
 
