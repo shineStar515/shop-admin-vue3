@@ -27,8 +27,10 @@ declare module '@vue/runtime-core' {
 		ElMain: typeof import('element-plus/es')['ElMain'];
 		ElOption: typeof import('element-plus/es')['ElOption'];
 		ElRow: typeof import('element-plus/es')['ElRow'];
+		ElScrollbar: typeof import('element-plus/es')['ElScrollbar'];
 		ElSelect: typeof import('element-plus/es')['ElSelect'];
 		ElTooltip: typeof import('element-plus/es')['ElTooltip'];
+		FormDrawer: typeof import('./src/components/FormDrawer/index.vue')['default'];
 		RouterLink: typeof import('vue-router')['RouterLink'];
 		RouterView: typeof import('vue-router')['RouterView'];
 	}

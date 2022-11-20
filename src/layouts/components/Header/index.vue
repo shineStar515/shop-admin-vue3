@@ -37,9 +37,8 @@
 				</template>
 			</el-dropdown>
 		</div>
-		<el-drawer v-model='dialog' direction='rtl' :close-on-click-modal='false' custom-class='demo-drawer' size='40%'>
-			<template #header><h3 style='color: #6366f1'>修改密码</h3></template>
-			<div class='demo-drawer__content' style='padding: 0 50px'>
+		<FormDrawer ref='formDrawerRef' title='修改' @submit='handleResetPWDClick(resetFormRef)'>
+			<template #content>
 				<el-form
 					ref='resetFormRef'
 					:model='resetPWDForm'
@@ -58,24 +57,20 @@
 						<el-input v-model='resetPWDForm.confirmPassword' placeholder='请确认新密码' />
 					</el-form-item>
 				</el-form>
-				<div class='demo-drawer__footer'>
-					<el-button @click='dialog = false' size='large' plain>取消</el-button>
-					<el-button type='primary' :loading='loading' size='large' @click='handleResetPWDClick(resetFormRef)'>修改
-					</el-button>
-				</div>
-			</div>
-		</el-drawer>
+			</template>
+		</FormDrawer>
 	</div>
 </template>
 <script lang='ts' setup>
+import FormDrawer from '@/components/FormDrawer/index.vue'
 import { useFullscreen } from '@vueuse/core'
 import { ElMessageBox } from 'element-plus'
 import { toast } from '@/utils/toast'
 import { removeToken } from '@/utils/authToken'
-import type { FormInstance, FormRules } from 'element-plus'
 import type { IUser } from '@/service/api/login/types'
 import useGlobalStore from '@/stores/global'
-import { reactive, ref } from 'vue'
+import { useRePassword } from '@/hooks/useRePassword'
+import { ref } from 'vue'
 
 //globalStore
 const globalStore = useGlobalStore()
@@ -85,7 +80,8 @@ const userInfo: IUser.UserResult = globalStore.userInfo
 function handleCommand(command: string) {
 	switch (command) {
 		case 'resetPassword':
-			openDialog()
+			//打开对话框
+			openRePassword()
 			break
 		case 'logout':
 			handleLogoutClick()
@@ -95,75 +91,17 @@ function handleCommand(command: string) {
 	}
 }
 
-//打开对话框
-function openDialog() {
-	dialog.value = true
-}
+//FormDrawer Hooks
+//修改密码
+const formDrawerRef = ref<InstanceType<FormDrawer>>()
+const {
+	resetFormRef,
+	resetPWDForm,
+	resetPWDFormRules,
+	openRePassword,
+	handleResetPWDClick
+} = useRePassword(formDrawerRef)
 
-//退出登录
-function handleLogout() {
-	globalStore.logoutRequestAction().finally(() => {
-		removeToken()
-		window.localStorage.clear()
-		window.location.reload()
-		toast('success', '退出登录成功')
-	})
-}
-
-const dialog = ref(false) //对话框
-const loading = ref(false) //loading
-const resetFormRef = ref<FormInstance>()
-//修改密码表单
-const resetPWDForm = reactive({
-	oldPassword: '',
-	newPassword: '',
-	confirmPassword: ''
-})
-//rules
-const resetPWDFormRules = reactive<FormRules>({
-	oldPassword: [{ required: true, message: '旧密码不能为空', trigger: 'blur' }],
-	newPassword: [
-		{
-			required: true,
-			message: '新密码不能为空',
-			trigger: 'blur'
-		}
-	],
-	confirmPassword: [
-		{
-			required: true,
-			message: '确认密码不能为空',
-			trigger: 'blur'
-		}
-	]
-})
-
-//修改密码操作
-function handleResetPWDClick(formEl: FormInstance) {
-	if (!formEl) return
-	formEl.validate(valid => {
-		if (valid) {
-			loading.value = true
-			const oldpassword = resetPWDForm.oldPassword
-			const password = resetPWDForm.newPassword
-			const repassword = resetPWDForm.confirmPassword
-			globalStore
-				.updatePasswordRequestAction({ oldpassword, password, repassword })
-				.then(() => {
-					toast('message', '修改密码成功,请重新登陆')
-					handleLogout()
-				})
-				.catch(() => {
-					toast('error', '修改失败,请重试')
-				})
-				.finally(() => {
-					loading.value = false
-				})
-		} else {
-			toast('warning', '请输入旧密码和新密码')
-		}
-	})
-}
 //退出登录
 function handleLogoutClick() {
 	ElMessageBox.confirm('是否要退出登录', 'Warning', {
@@ -172,7 +110,12 @@ function handleLogoutClick() {
 		type: 'warning'
 	})
 		.then(() => {
-			handleLogout()
+			globalStore.logoutRequestAction().finally(() => {
+				removeToken()
+				window.localStorage.clear()
+				window.location.reload()
+				toast('success', '退出登录成功')
+			})
 		})
 		.catch(() => {
 			toast('success', '取消退出')
@@ -231,12 +174,6 @@ const { isFullscreen, toggle } = useFullscreen()
 
 	.icon {
 		padding: 23px 20px;
-	}
-
-	.demo-drawer__footer {
-		position: absolute;
-		left: 50px;
-		bottom: 50px;
 	}
 }
 </style>
