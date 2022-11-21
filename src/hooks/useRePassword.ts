@@ -3,8 +3,10 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { toast } from '@/utils/toast'
 import useGlobalStore from '@/stores/global'
 import { removeToken } from '@/utils/authToken'
+import { useRouter } from 'vue-router'
 
 const globalStore = useGlobalStore()
+const router = useRouter()
 
 export function useRePassword(formDrawerRef: any) {
 	const resetFormRef = ref<FormInstance>()
@@ -31,7 +33,7 @@ export function useRePassword(formDrawerRef: any) {
 				trigger: 'blur'
 			}
 		]
-	})
+	});
 	const openRePassword = () => formDrawerRef.value.open()
 
 	//修改密码操作
@@ -48,7 +50,7 @@ export function useRePassword(formDrawerRef: any) {
 					.then(() => {
 						removeToken()
 						window.localStorage.clear()
-						window.location.reload()
+						router.push('/login')
 						toast('message', '修改密码成功,请重新登陆')
 					})
 					.catch(() => {

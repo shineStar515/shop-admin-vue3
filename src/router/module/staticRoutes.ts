@@ -1,21 +1,18 @@
+//默认路由-所有用户共享
 export const staticRoutes = [
 	{
 		path: '/',
-		redirect: '/layout'
+		redirect: '/admin'
 	},
 	{
-		path: '/layout',
-		name: 'layout',
-		redirect: '/layout/home',
+		path: '/admin',
+		name: 'admin',
 		component: () => import('@/layouts/index.vue'),
+		redirect: '/admin/index',
 		children: [
 			{
-				path: 'home',
-				name: 'home',
-				component: () => import('@/views/home/index.vue'),
-				meta: {
-					title: '后台首页'
-				}
+				path: 'index',
+				component: () => import('@/views/home/index.vue')
 			}
 		]
 	},

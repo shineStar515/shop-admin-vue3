@@ -6,7 +6,10 @@
 				></span>
 			<h2 class='header-title'>星星会发光</h2>
 			<span style='margin-left: 20px'>
-				<el-icon class='icon icon-btn' color='#fff' :size='25'><Fold /></el-icon>
+				<el-icon class='icon icon-btn' color='#fff' :size='25' @click='handleFoldClick'>
+					<Fold v-if="globalStore.menuWidth === '250px'" />
+					<Expand v-else />
+				</el-icon>
 				<el-tooltip class='box-item' effect='dark' content='刷新' placement='bottom'>
 					<el-icon class='icon icon-btn' color='#fff' :size='25' @click='handleRefresh'>
 						<RefreshRight />
@@ -71,10 +74,17 @@ import type { IUser } from '@/service/api/login/types'
 import useGlobalStore from '@/stores/global'
 import { useRePassword } from '@/hooks/useRePassword'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 //globalStore
 const globalStore = useGlobalStore()
 const userInfo: IUser.UserResult = globalStore.userInfo
+
+/* 菜单展开收缩 */
+function handleFoldClick() {
+	globalStore.changeMenuWidthAction()
+}
 
 /* 下拉框事件派发 */
 function handleCommand(command: string) {
@@ -113,7 +123,7 @@ function handleLogoutClick() {
 			globalStore.logoutRequestAction().finally(() => {
 				removeToken()
 				window.localStorage.clear()
-				window.location.reload()
+				router.push('/login')
 				toast('success', '退出登录成功')
 			})
 		})
@@ -135,7 +145,7 @@ const { isFullscreen, toggle } = useFullscreen()
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 20px;
+	padding: 0 16px;
 	background-color: #6366f1;
 	height: 70px;
 	text-align: center;
@@ -151,7 +161,7 @@ const { isFullscreen, toggle } = useFullscreen()
 		justify-content: space-between;
 		align-items: center;
 		vertical-align: center;
-		padding: 0 20px;
+		padding: 0 15px;
 	}
 
 	.el-dropdown-link {

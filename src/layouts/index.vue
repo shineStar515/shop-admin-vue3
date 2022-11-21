@@ -5,18 +5,12 @@
 				<Header />
 			</el-header>
 			<el-container>
-				<el-aside class='el-aside' width='200px'>
+				<el-aside class='el-aside' :width='menuWidth'>
 					<Menu />
 				</el-aside>
 				<el-main>
 					<TagList />
-					<router-view v-slot='{ Component }'>
-						<transition name='fade'>
-							<keep-alive :max='10'>
-								<component :is='Component'></component>
-							</keep-alive>
-						</transition>
-					</router-view>
+					<router-view></router-view>
 				</el-main>
 			</el-container>
 		</el-container>
@@ -26,6 +20,10 @@
 import Header from '@/layouts/components/Header/index.vue'
 import Menu from '@/layouts/components/Menu/index.vue'
 import TagList from '@/layouts/components/TagList/index.vue'
+import useGlobalStore from '@/stores/global'
+import { storeToRefs } from 'pinia'
+
+const { menuWidth } = storeToRefs(useGlobalStore())
 </script>
 <style scoped lang='scss'>
 .layouts {

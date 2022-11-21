@@ -38,6 +38,7 @@ export namespace IUser {
 	}
 
 	//用户菜单
+
 	export interface Menu {
 		id: number;
 		rule_id: number;
@@ -65,23 +66,6 @@ export namespace IUser {
 		desc?: string;
 		frontpath: string;
 		condition?: string;
-		menu: number;
-		order: number;
-		icon: string;
-		method: string;
-		child: Child2[];
-	}
-
-	export interface Child2 {
-		id: number;
-		rule_id: number;
-		status: number;
-		create_time: string;
-		update_time: string;
-		name: string;
-		desc: any;
-		frontpath: string;
-		condition: string;
 		menu: number;
 		order: number;
 		icon: string;
