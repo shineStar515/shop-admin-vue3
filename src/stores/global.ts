@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
-import { setToken } from '@/utils/authToken'
-import piniaPersistConfig from '@/stores/config'
-import type { IGlobalStore } from '@/stores/types'
-import type { IUser } from '@/service/api/login/types'
+import { defineStore } from 'pinia';
+import { setToken } from '@/utils/authToken';
+import piniaPersistConfig from '@/stores/config';
+import type { IGlobalStore } from '@/stores/types';
+import type { IUser } from '@/service/api/login/types';
 
 const useGlobalStore = defineStore('global', {
 	state: (): IGlobalStore => ({
@@ -15,25 +15,25 @@ const useGlobalStore = defineStore('global', {
 	actions: {
 		//setToken
 		setUserToken(token: string) {
-			this.shopAdminToken = token
-			setToken(token)
+			this.shopAdminToken = token;
+			setToken(token);
 		},
 		//setUserInfo
 		setUserInfo(userInfo: IUser.UserResult) {
-			this.userInfo = userInfo
+			this.userInfo = userInfo;
 		},
 		//setUserMenus
 		setUserMenus(userMenus: IUser.Menu[]) {
-			this.menus = userMenus
+			this.menus = userMenus;
 		},
 		//setRuleNames
 		setUserRuleNames(userRuleNames: string[]) {
-			this.ruleNames = userRuleNames
+			this.ruleNames = userRuleNames;
 		},
 
 		//修改菜单宽度
 		changeMenuWidthAction() {
-			this.menuWidth = this.menuWidth === '250px' ? '64px' : '250px'
+			this.menuWidth = this.menuWidth === '250px' ? '64px' : '250px';
 		}
 	},
 	persist: piniaPersistConfig('global', ['shopAdminToken', 'ruleNames'])

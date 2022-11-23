@@ -18,18 +18,18 @@
 	</div>
 </template>
 <script lang='ts' setup>
-import { ref, defineExpose } from 'vue'
+import { ref, defineExpose } from 'vue';
 
-const emit = defineEmits(['submit'])
-const dialog = ref(false)
-const open = () => (dialog.value = true)
-const close = () => (dialog.value = false)
-const loading = ref(false)
-const openLoading = () => (loading.value = true)
-const closeLoading = () => (loading.value = false)
+const emit = defineEmits(['submit']);
+const dialog = ref(false);
+const open = () => (dialog.value = true);
+const close = () => (dialog.value = false);
+const loading = ref(false);
+const openLoading = () => (loading.value = true);
+const closeLoading = () => (loading.value = false);
 
 function handleInputClick() {
-	emit('submit')
+	emit('submit');
 }
 
 defineProps({
@@ -37,13 +37,13 @@ defineProps({
 		type: String,
 		default: '提交'
 	}
-})
+});
 defineExpose({
 	open,
 	close,
 	openLoading,
 	closeLoading
-})
+});
 </script>
 <style scoped lang='scss'>
 .drawer {

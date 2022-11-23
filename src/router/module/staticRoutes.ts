@@ -12,6 +12,7 @@ export const staticRoutes = [
 		children: [
 			{
 				path: 'index',
+				name: '后台首页',
 				component: () => import('@/views/home/index.vue')
 			}
 		]

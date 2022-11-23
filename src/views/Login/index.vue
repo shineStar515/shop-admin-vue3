@@ -11,7 +11,7 @@
 	</div>
 </template>
 <script lang='ts' setup name='login'>
-import LoginForm from '@/views/Login/cpns/LoginForm.vue'
+import LoginForm from '@/views/Login/cpns/LoginForm.vue';
 </script>
 <style scoped lang='scss'>
 .login {

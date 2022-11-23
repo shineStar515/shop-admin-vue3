@@ -1,9 +1,9 @@
-import nprogress from 'nprogress'
+import nprogress from 'nprogress';
 
 export function showFullLoading() {
-	nprogress.start()
+	nprogress.start();
 }
 
 export function doneFullLoading() {
-	nprogress.done()
+	nprogress.done();
 }

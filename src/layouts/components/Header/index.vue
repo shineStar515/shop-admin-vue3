@@ -65,26 +65,26 @@
 	</div>
 </template>
 <script lang='ts' setup>
-import FormDrawer from '@/components/FormDrawer/index.vue'
-import { useFullscreen } from '@vueuse/core'
-import { ElMessageBox } from 'element-plus'
-import { toast } from '@/utils/toast'
-import { removeToken } from '@/utils/authToken'
-import type { IUser } from '@/service/api/login/types'
-import useGlobalStore from '@/stores/global'
-import { useRePassword } from '@/hooks/useRePassword'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { logoutInfo } from '@/service/api/login'
+import FormDrawer from '@/components/FormDrawer/index.vue';
+import { useFullscreen } from '@vueuse/core';
+import { ElMessageBox } from 'element-plus';
+import { toast } from '@/utils/toast';
+import { removeToken } from '@/utils/authToken';
+import type { IUser } from '@/service/api/login/types';
+import useGlobalStore from '@/stores/global';
+import { useRePassword } from '@/hooks/useRePassword';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { logoutInfo } from '@/service/api/login';
 
-const router = useRouter()
+const router = useRouter();
 //globalStore
-const globalStore = useGlobalStore()
-const userInfo: IUser.UserResult = globalStore.userInfo
+const globalStore = useGlobalStore();
+const userInfo: IUser.UserResult = globalStore.userInfo;
 
 /* 菜单展开收缩 */
 function handleFoldClick() {
-	globalStore.changeMenuWidthAction()
+	globalStore.changeMenuWidthAction();
 }
 
 /* 下拉框事件派发 */
@@ -92,27 +92,27 @@ function handleCommand(command: string) {
 	switch (command) {
 		case 'resetPassword':
 			//打开修改密码对话框
-			openRePassword()
-			break
+			openRePassword();
+			break;
 		case 'logout':
 			//退出登录
-			handleLogoutClick()
-			break
+			handleLogoutClick();
+			break;
 		default:
-			break
+			break;
 	}
 }
 
 //FormDrawer Hooks
 //修改密码
-const formDrawerRef = ref<InstanceType<FormDrawer>>()
+const formDrawerRef = ref<InstanceType<FormDrawer>>();
 const {
 	resetFormRef,
 	resetPWDForm,
 	resetPWDFormRules,
 	openRePassword,
 	handleResetPWDClick
-} = useRePassword(formDrawerRef)
+} = useRePassword(formDrawerRef);
 
 //退出登录
 function handleLogoutClick() {
@@ -123,25 +123,25 @@ function handleLogoutClick() {
 	})
 		.then(() => {
 			logoutInfo().finally(() => {
-				removeToken()
-				window.localStorage.clear()
+				removeToken();
+				window.localStorage.clear();
 				router.push('/login').catch(() => {
-				})
-				toast('success', '退出登录成功')
-			})
+				});
+				toast('success', '退出登录成功');
+			});
 		})
 		.catch(() => {
-			toast('success', '取消退出')
-		})
+			toast('success', '取消退出');
+		});
 }
 
 //刷新
 function handleRefresh() {
-	window.location.reload()
+	window.location.reload();
 }
 
 //全屏
-const { isFullscreen, toggle } = useFullscreen()
+const { isFullscreen, toggle } = useFullscreen();
 </script>
 <style scoped lang='scss'>
 .header {

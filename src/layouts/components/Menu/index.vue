@@ -31,7 +31,7 @@
 					</el-menu-item>
 				</el-sub-menu>
 				<!--				一级菜单    -->
-				<el-menu-item v-else :index='item.frontpath' @click='handleMenuClick(item.frontpath)'>
+				<el-menu-item v-else :index='item.frontpath' @click='handleMenuClick(item.path)'>
 					<el-icon>
 						<component :is='item.icon'></component>
 					</el-icon>
@@ -44,21 +44,21 @@
 	</div>
 </template>
 <script lang='ts' setup>
-import { useRoute, useRouter } from 'vue-router'
-import useGlobalStore from '@/stores/global'
-import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
+import useGlobalStore from '@/stores/global';
+import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 //折叠菜单宽度
-const { menuWidth, menus } = storeToRefs(useGlobalStore())
-const route = useRoute()
+const { menuWidth, menus } = storeToRefs(useGlobalStore());
+const route = useRoute();
 //默认菜单项
-const defaultActive = ref(route.path)
+const defaultActive = ref(route.path == '/admin/index' ? '/' : route.path);
 
 //菜单跳转
-const router = useRouter()
+const router = useRouter();
 
 function handleMenuClick(path: any) {
-	router.push(path)
+	router.push(path);
 }
 </script>
 <style scoped lang='scss'>

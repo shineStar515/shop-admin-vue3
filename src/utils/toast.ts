@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus';
 
 export type toastType = 'success' | 'warning' | 'message' | 'error';
 
@@ -7,5 +7,5 @@ export function toast(type: toastType, message: string, duration = 3000) {
 		message,
 		type: type as any,
 		duration
-	})
+	});
 }

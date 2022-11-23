@@ -1,26 +1,26 @@
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
-import axios from 'axios'
-import type { IResultData } from '@/service/request/types'
-import { toast } from '@/utils/toast'
-import { getToken } from '@/utils/authToken'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
+import type { IResultData } from '@/service/request/types';
+import { toast } from '@/utils/toast';
+import { getToken } from '@/utils/authToken';
 
 class myRequest {
-	instance: AxiosInstance
+	instance: AxiosInstance;
 
 	constructor(config: AxiosRequestConfig) {
-		this.instance = axios.create(config)
+		this.instance = axios.create(config);
 		//请求拦截器
 		this.instance.interceptors.request.use(
 			(config: AxiosRequestConfig) => {
 				// 获取token
-				const token = getToken()
+				const token = getToken();
 				if (token && config.headers && config.url != '/login') {
 					config!.headers['token'] = token;
 				}
 				return config;
 			},
 			error => {
-				toast('error', '请求失败,请稍后重试!!!')
+				toast('error', '请求失败,请稍后重试!!!');
 				return Promise.reject(error);
 			}
 		);
@@ -29,10 +29,10 @@ class myRequest {
 			res => {
 				return res.data;
 			},
-			error => {
-				toast('error', '请求失败,请稍后重试!!!')
-				return Promise.reject(error);
-			}
+				error => {
+					toast('error', '请求失败,请稍后重试!!!');
+					return Promise.reject(error);
+				};
 		);
 	}
 	get<T>(config: AxiosRequestConfig): Promise<IResultData<T>> {

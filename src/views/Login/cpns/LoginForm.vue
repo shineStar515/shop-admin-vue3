@@ -20,21 +20,21 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from 'element-plus'
-import { ElNotification } from 'element-plus'
-import { Lock, User } from '@element-plus/icons-vue'
-import { onMounted, reactive, ref } from 'vue'
-import useGlobalStore from '@/stores/global'
-import { toast } from '@/utils/toast'
-import { useRouter } from 'vue-router'
-import { addAsyncRoutes } from '@/router/module/asyncRoutes'
-import { getLoginInfo, getUserInfo } from '@/service/api/login'
+import type { FormInstance, FormRules } from 'element-plus';
+import { ElNotification } from 'element-plus';
+import { Lock, User } from '@element-plus/icons-vue';
+import { onMounted, reactive, ref } from 'vue';
+import useGlobalStore from '@/stores/global';
+import { toast } from '@/utils/toast';
+import { useRouter } from 'vue-router';
+import { addAsyncRoutes } from '@/router/module/asyncRoutes';
+import { getLoginInfo, getUserInfo } from '@/service/api/login';
 
 const loginForm = reactive({
 	username: 'admin',
 	password: 'admin'
-})
-const loginFormRef = ref<FormInstance>()
+});
+const loginFormRef = ref<FormInstance>();
 const loginFormRules = reactive<FormRules>({
 	username: [
 		{ required: true, message: '请输入用户名', trigger: 'blur' },
@@ -48,38 +48,39 @@ const loginFormRules = reactive<FormRules>({
 		}
 	]
 });
-const globalStore = useGlobalStore()
-const router = useRouter()
-const loading = ref(false)
+const globalStore = useGlobalStore();
+const router = useRouter();
+const loading = ref(false);
+
 function handleLoginClick(formEl: FormInstance) {
-	if (!formEl) return
+	if (!formEl) return;
 	formEl.validate(async valid => {
-		if (!valid) return
+		if (!valid) return;
 		try {
-			loading.value = true
+			loading.value = true;
 			//1.登录
-			const username = loginForm.username
-			const password = loginForm.password
-			const { data: loginInfo } = await getLoginInfo({ username, password })
-			globalStore.setUserToken(loginInfo.token)
+			const username = loginForm.username;
+			const password = loginForm.password;
+			const { data: loginInfo } = await getLoginInfo({ username, password });
+			globalStore.setUserToken(loginInfo.token);
 			//2.用户信息
-			const { data: userInfo } = await getUserInfo()
-			globalStore.setUserInfo(userInfo)
-			globalStore.setUserMenus(userInfo.menus)
-			globalStore.setUserRuleNames(userInfo.ruleNames)
+			const { data: userInfo } = await getUserInfo();
+			globalStore.setUserInfo(userInfo);
+			globalStore.setUserMenus(userInfo.menus);
+			globalStore.setUserRuleNames(userInfo.ruleNames);
 			//3.添加动态路由
-			addAsyncRoutes(globalStore.menus)
+			addAsyncRoutes(globalStore.menus);
 			//4.跳转到首页
-			await router.push('/admin')
+			await router.push('/admin');
 			ElNotification({
 				title: 'Success',
 				message: '登录成功',
 				type: 'success'
-			})
+			});
 		} catch {
-			toast('error', '账号或密码错误')
+			toast('error', '账号或密码错误');
 		} finally {
-			loading.value = false
+			loading.value = false;
 		}
 	});
 }

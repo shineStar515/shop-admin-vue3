@@ -9,7 +9,7 @@
 					<Menu />
 				</el-aside>
 				<el-main class='el-main'>
-					<TagList />
+					<Tabs />
 					<router-view></router-view>
 				</el-main>
 			</el-container>
@@ -17,13 +17,13 @@
 	</div>
 </template>
 <script lang='ts' setup name='layout'>
-import Header from '@/layouts/components/Header/index.vue'
-import Menu from '@/layouts/components/Menu/index.vue'
-import TagList from '@/layouts/components/TagList/index.vue'
-import useGlobalStore from '@/stores/global'
-import { storeToRefs } from 'pinia'
+import Header from '@/layouts/components/Header/index.vue';
+import Menu from '@/layouts/components/Menu/index.vue';
+import Tabs from '@/layouts/components/Tabs/index.vue';
+import useGlobalStore from '@/stores/global';
+import { storeToRefs } from 'pinia';
 
-const { menuWidth } = storeToRefs(useGlobalStore())
+const { menuWidth } = storeToRefs(useGlobalStore());
 </script>
 <style scoped lang='scss'>
 .layouts {
@@ -40,6 +40,7 @@ const { menuWidth } = storeToRefs(useGlobalStore())
 		}
 
 		.el-main {
+			padding: 0;
 			background-color: #f0f2f5;
 		}
 	}

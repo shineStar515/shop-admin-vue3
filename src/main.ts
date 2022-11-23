@@ -1,18 +1,18 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
-import 'element-plus/dist/index.css'
-import * as Icons from '@element-plus/icons-vue'
-import 'normalize.css'
-import 'nprogress/nprogress.css'
-import pinia from '@/stores'
-import App from './App.vue'
-import router from './router'
+import 'element-plus/dist/index.css';
+import * as Icons from '@element-plus/icons-vue';
+import 'normalize.css';
+import 'nprogress/nprogress.css';
+import pinia from '@/stores';
+import App from './App.vue';
+import router from './router';
 
-const app = createApp(App)
+const app = createApp(App);
 Object.keys(Icons).forEach(key => {
-	app.component(key, Icons[key as keyof typeof Icons])
-})
-app.use(pinia)
-app.use(router)
+	app.component(key, Icons[key as keyof typeof Icons]);
+});
+app.use(pinia);
+app.use(router);
 
-app.mount('#app')
+app.mount('#app');
