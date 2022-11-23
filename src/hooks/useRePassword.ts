@@ -1,12 +1,9 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { toast } from '@/utils/toast'
-import useGlobalStore from '@/stores/global'
 import { removeToken } from '@/utils/authToken'
-import { useRouter } from 'vue-router'
-
-const globalStore = useGlobalStore()
-const router = useRouter()
+import router from '@/router'
+import { updatePassword } from '@/service/api/login'
 
 export function useRePassword(formDrawerRef: any) {
 	const resetFormRef = ref<FormInstance>()
@@ -39,28 +36,26 @@ export function useRePassword(formDrawerRef: any) {
 	//修改密码操作
 	function handleResetPWDClick(formEl: FormInstance) {
 		if (!formEl) return
-		formEl.validate(valid => {
-			if (valid) {
+		formEl.validate(async valid => {
+			if (!valid) return
+			try {
 				formDrawerRef.value.openLoading()
+				//1.修改密码
 				const oldpassword = resetPWDForm.oldPassword
 				const password = resetPWDForm.newPassword
 				const repassword = resetPWDForm.confirmPassword
-				globalStore
-					.updatePasswordRequestAction({ oldpassword, password, repassword })
-					.then(() => {
-						removeToken()
-						window.localStorage.clear()
-						router.push('/login')
-						toast('message', '修改密码成功,请重新登陆')
-					})
-					.catch(() => {
-						toast('error', '修改失败,请重试')
-					})
-					.finally(() => {
-						formDrawerRef.value.closeLoading()
-					})
-			} else {
-				toast('warning', '请输入旧密码和新密码')
+				await updatePassword({ oldpassword, password, repassword })
+				//2.清除用户信息
+				removeToken()
+				window.localStorage.clear()
+				//3.跳转到登录页
+				await router.push('/login').catch(() => {
+				})
+				toast('message', '修改密码成功,请重新登陆')
+			} catch {
+				toast('error', '修改失败,请重试')
+			} finally {
+				formDrawerRef.value.closeLoading()
 			}
 		})
 	}

@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia'
-import router from '@/router'
-import { getLoginInfo, getUserInfo, logoutInfo, updatePassword } from '@/service/api/login'
-import { getToken, setToken } from '@/utils/authToken'
-import type { ILogin } from '@/service/api/login/types'
-import type { IGlobalStore } from '@/stores/types'
+import { setToken } from '@/utils/authToken'
 import piniaPersistConfig from '@/stores/config'
+import type { IGlobalStore } from '@/stores/types'
+import type { IUser } from '@/service/api/login/types'
 
 const useGlobalStore = defineStore('global', {
 	state: (): IGlobalStore => ({
@@ -15,29 +13,24 @@ const useGlobalStore = defineStore('global', {
 		ruleNames: []
 	}),
 	actions: {
-		//登录信息
-		async loginRequestAction(loginInfo: ILogin.LoginInfo) {
-			const { data } = await getLoginInfo(loginInfo)
-			setToken(data.token)
-			this.shopAdminToken = getToken()
-			await this.userInfoRequestAction()
-			await router.push('/')
+		//setToken
+		setUserToken(token: string) {
+			this.shopAdminToken = token
+			setToken(token)
 		},
-		//用户信息
-		async userInfoRequestAction() {
-			const { data: userInfo } = await getUserInfo()
+		//setUserInfo
+		setUserInfo(userInfo: IUser.UserResult) {
 			this.userInfo = userInfo
-			this.menus = userInfo.menus
-			this.ruleNames = userInfo.ruleNames
 		},
-		//退出登录
-		async logoutRequestAction() {
-			await logoutInfo()
+		//setUserMenus
+		setUserMenus(userMenus: IUser.Menu[]) {
+			this.menus = userMenus
 		},
-		//修改密码
-		async updatePasswordRequestAction(updateData: ILogin.UpdatePasswordInfo) {
-			await updatePassword(updateData)
+		//setRuleNames
+		setUserRuleNames(userRuleNames: string[]) {
+			this.ruleNames = userRuleNames
 		},
+
 		//修改菜单宽度
 		changeMenuWidthAction() {
 			this.menuWidth = this.menuWidth === '250px' ? '64px' : '250px'

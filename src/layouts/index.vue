@@ -8,7 +8,7 @@
 				<el-aside class='el-aside' :width='menuWidth'>
 					<Menu />
 				</el-aside>
-				<el-main>
+				<el-main class='el-main'>
 					<TagList />
 					<router-view></router-view>
 				</el-main>
@@ -37,6 +37,10 @@ const { menuWidth } = storeToRefs(useGlobalStore())
 
 		.el-header {
 			padding: 0;
+		}
+
+		.el-main {
+			background-color: #f0f2f5;
 		}
 	}
 

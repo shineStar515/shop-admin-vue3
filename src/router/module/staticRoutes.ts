@@ -19,7 +19,7 @@ export const staticRoutes = [
 	{
 		path: '/login',
 		name: 'login',
-		component: () => import('@/views/Login/index.vue'),
+		component: () => import('@/views/login/index.vue'),
 		meta: {
 			title: '登录页'
 		}

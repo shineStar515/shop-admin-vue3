@@ -47,15 +47,13 @@
 import { useRoute, useRouter } from 'vue-router'
 import useGlobalStore from '@/stores/global'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 //折叠菜单宽度
 const { menuWidth, menus } = storeToRefs(useGlobalStore())
 const route = useRoute()
 //默认菜单项
 const defaultActive = ref(route.path)
-onMounted(() => {
-	defaultActive.value = defaultActive.value == '/' ? '/admin/index' : defaultActive.value
-})
+
 //菜单跳转
 const router = useRouter()
 

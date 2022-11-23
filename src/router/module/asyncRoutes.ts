@@ -32,7 +32,6 @@ export function addAsyncRoutes(initMenus: IUser.Menu[]) {
 		route.component = modules['/src/views' + route.frontpath + '.vue']
 		if (route.component) {
 			route.path = route.frontpath
-			console.log(route)
 			router.addRoute('admin', route)
 		}
 	})

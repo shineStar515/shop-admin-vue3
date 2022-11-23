@@ -75,6 +75,7 @@ import useGlobalStore from '@/stores/global'
 import { useRePassword } from '@/hooks/useRePassword'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { logoutInfo } from '@/service/api/login'
 
 const router = useRouter()
 //globalStore
@@ -90,10 +91,11 @@ function handleFoldClick() {
 function handleCommand(command: string) {
 	switch (command) {
 		case 'resetPassword':
-			//打开对话框
+			//打开修改密码对话框
 			openRePassword()
 			break
 		case 'logout':
+			//退出登录
 			handleLogoutClick()
 			break
 		default:
@@ -120,10 +122,11 @@ function handleLogoutClick() {
 		type: 'warning'
 	})
 		.then(() => {
-			globalStore.logoutRequestAction().finally(() => {
+			logoutInfo().finally(() => {
 				removeToken()
 				window.localStorage.clear()
-				router.push('/login')
+				router.push('/login').catch(() => {
+				})
 				toast('success', '退出登录成功')
 			})
 		})
