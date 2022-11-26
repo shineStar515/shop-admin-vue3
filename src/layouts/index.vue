@@ -10,13 +10,19 @@
 				</el-aside>
 				<el-main class='el-main'>
 					<Tabs />
-					<router-view></router-view>
+					<router-view v-slot='{ Component }'>
+						<transition name='fade'>
+							<keep-alive :max='10'>
+								<component :is='Component'></component>
+							</keep-alive>
+						</transition>
+					</router-view>
 				</el-main>
 			</el-container>
 		</el-container>
 	</div>
 </template>
-<script lang='ts' setup name='layout'>
+<script lang='ts' setup name='admin'>
 import Header from '@/layouts/components/Header/index.vue';
 import Menu from '@/layouts/components/Menu/index.vue';
 import Tabs from '@/layouts/components/Tabs/index.vue';
@@ -39,15 +45,15 @@ const { menuWidth } = storeToRefs(useGlobalStore());
 			padding: 0;
 		}
 
+		.el-aside {
+			padding: 0;
+			transition: all 0.2s;
+		}
+
 		.el-main {
 			padding: 0;
 			background-color: #f0f2f5;
 		}
-	}
-
-	.el-aside {
-		padding: 0;
-		transition: all 0.2s;
 	}
 }
 
@@ -65,5 +71,15 @@ const { menuWidth } = storeToRefs(useGlobalStore());
 
 .fade-leave-to {
 	opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 0.3s;
+}
+
+/*避免进入离开动画重叠*/
+.fade-enter-active {
+	transition-delay: 0.3s;
 }
 </style>

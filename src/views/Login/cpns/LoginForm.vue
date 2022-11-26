@@ -29,6 +29,7 @@ import { toast } from '@/utils/toast';
 import { useRouter } from 'vue-router';
 import { addAsyncRoutes } from '@/router/module/asyncRoutes';
 import { getLoginInfo, getUserInfo } from '@/service/api/login';
+import useTabsStore from '@/stores/modules/tabs';
 
 const loginForm = reactive({
 	username: 'admin',
@@ -49,7 +50,9 @@ const loginFormRules = reactive<FormRules>({
 	]
 });
 const globalStore = useGlobalStore();
+const tabsStore = useTabsStore();
 const router = useRouter();
+console.log(tabsStore);
 const loading = ref(false);
 
 function handleLoginClick(formEl: FormInstance) {
@@ -70,6 +73,8 @@ function handleLoginClick(formEl: FormInstance) {
 			globalStore.setUserRuleNames(userInfo.ruleNames);
 			//3.添加动态路由
 			addAsyncRoutes(globalStore.menus);
+			//4.初始化Tabs
+			tabsStore.initTabsRoute();
 			//4.跳转到首页
 			await router.push('/admin');
 			ElNotification({
