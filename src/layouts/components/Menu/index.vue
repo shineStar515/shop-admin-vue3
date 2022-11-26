@@ -1,7 +1,7 @@
 <template>
 	<div class='menu'>
 		<el-menu
-			:default-active='defaultActive'
+			:default-active="defaultActive === '/admin/index' ? '/' : defaultActive"
 			class='el-menu'
 			:collapse="menuWidth !== '250px'"
 			:collapse-transition='false'
@@ -47,18 +47,24 @@
 import { useRoute, useRouter } from 'vue-router';
 import useGlobalStore from '@/stores/global';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import useTabsStore from '@/stores/modules/tabs';
+import { onMounted, ref } from 'vue';
 //折叠菜单宽度
 const { menuWidth, menus } = storeToRefs(useGlobalStore());
+const { tabsMenuValue } = storeToRefs(useTabsStore());
 const route = useRoute();
 //默认菜单项
-const defaultActive = ref(route.path == '/admin/index' ? '/' : route.path);
+const defaultActive = ref(tabsMenuValue);
 
 //菜单跳转
 const router = useRouter();
+const tabsStore = useTabsStore();
+onMounted(() => handleMenuClick(route.path));
 
 function handleMenuClick(path: any) {
+	if (path == '/') path = '/admin/index';
 	router.push(path);
+	tabsStore.addTabsRoute(path);
 }
 </script>
 <style scoped lang='scss'>

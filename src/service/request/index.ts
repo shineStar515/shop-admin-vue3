@@ -29,10 +29,10 @@ class myRequest {
 			res => {
 				return res.data;
 			},
-				error => {
-					toast('error', '请求失败,请稍后重试!!!');
-					return Promise.reject(error);
-				};
+			error => {
+				toast('error', '请求失败,请稍后重试!!!');
+				return Promise.reject(error);
+			}
 		);
 	}
 	get<T>(config: AxiosRequestConfig): Promise<IResultData<T>> {

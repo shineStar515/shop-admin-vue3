@@ -8,12 +8,6 @@
 		</el-button>
 		<template #dropdown>
 			<el-dropdown-menu>
-				<el-dropdown-item @click='closeCurrentTab'>
-					<el-icon>
-						<Remove />
-					</el-icon>
-					关闭当前
-				</el-dropdown-item>
 				<el-dropdown-item @click='closeOtherTab'>
 					<el-icon>
 						<CircleClose />
@@ -31,6 +25,18 @@
 	</el-dropdown>
 </template>
 
-<script setup lang='ts'></script>
+<script setup lang='ts'>
+import useTabsStore from '@/stores/modules/tabs';
+
+const tabsStore = useTabsStore();
+
+function closeOtherTab() {
+	tabsStore.removeOtherTabs();
+}
+
+function closeAllTab() {
+	tabsStore.removeAllTabs();
+}
+</script>
 
 <style scoped lang='scss'></style>

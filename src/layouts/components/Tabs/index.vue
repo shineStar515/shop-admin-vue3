@@ -1,23 +1,51 @@
 <template>
 	<div class='tabs'>
 		<div class='tabs-menu'>
-			<el-tabs v-model='tabsMenuValue' type='card' @tab-click='tabClick' @tab-remove='tabRemove'>
-				<el-tab-pane v-for='item in tabsMenuList' :key='item.path' :label='item.name' :closable='true'></el-tab-pane>
+			<el-tabs v-model='tabsMenuValue' type='card' @tab-remove='tabRemove' @tab-change='tabChange'>
+				<el-tab-pane
+					v-for='item in tabsList'
+					:key='item.path'
+					:label='item.name'
+					:name='item.path'
+					:closable='true'
+				></el-tab-pane>
 			</el-tabs>
 			<MoreButton />
 		</div>
 	</div>
 </template>
 <script lang='ts' setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import MoreButton from '@/layouts/components/Tabs/cpns/MoreButton.vue';
+import useTabsStore from '@/stores/modules/tabs';
+import { storeToRefs } from 'pinia';
+import { watch } from 'vue';
 
+const tabsStore = useTabsStore();
+const { tabsList, tabsMenuValue } = storeToRefs(tabsStore);
 const router = useRouter();
-const tabsMenuValue = ref(0);
-const data = router.getRoutes();
-const tabsMenuList = ref(data);
-console.log(tabsMenuList);
+
+function tabChange(path: string) {
+	router.push(path);
+}
+
+function tabRemove(path: string) {
+	tabsStore.removeTabsRoute(path);
+}
+
+// 监听路由的变化（防止浏览器后退/前进不变化 tabsMenuValue）
+const route = useRoute();
+watch(
+	() => route.path,
+	() => {
+		tabsMenuValue.value = route.path;
+
+		tabsStore.addTabsRoute(route.path);
+	},
+	{
+		immediate: true
+	}
+);
 </script>
 <style scoped lang='scss'>
 :deep(.el-card__header) {
