@@ -51,6 +51,7 @@ const { menuWidth } = storeToRefs(useGlobalStore());
 		}
 
 		.el-main {
+			box-sizing: border-box;
 			padding: 0;
 			background-color: #f0f2f5;
 		}
