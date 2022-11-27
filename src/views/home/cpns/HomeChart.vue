@@ -7,13 +7,10 @@
 						<div class='home-chart-header'>
 							<span>订单统计</span>
 							<template v-for='item in options' :key='item.text'>
-								<el-check-tag
-									:checked='currentType === item.type'
-									style='margin-right: 8px'
-									@click='handleTagChange(item.type)'
+								<el-check-tag :checked='currentType === item.type' style='margin-right: 8px'
+															@click='handleTagChange(item.type)'
 								>{{ item.text }}
-								</el-check-tag
-								>
+								</el-check-tag>
 							</template>
 						</div>
 					</template>
@@ -80,6 +77,7 @@ onMounted(() => {
 <style scoped lang='scss'>
 .home-chart {
 	box-sizing: border-box;
+	margin-top: 20px;
 
 	.home-chart-header {
 		display: flex;

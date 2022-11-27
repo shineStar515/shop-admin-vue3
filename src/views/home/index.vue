@@ -13,6 +13,6 @@ import HomeChart from './cpns/HomeChart.vue';
 <style scoped lang='scss'>
 .home {
 	box-sizing: border-box;
-	padding: 20px 20px;
+	padding: 0 20px;
 }
 </style>

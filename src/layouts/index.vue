@@ -10,13 +10,17 @@
 				</el-aside>
 				<el-main class='el-main'>
 					<Tabs />
-					<router-view v-slot='{ Component }'>
-						<transition name='fade'>
-							<keep-alive :max='10'>
-								<component :is='Component'></component>
-							</keep-alive>
-						</transition>
-					</router-view>
+					<div style='padding-top: 20px'>
+						<el-scrollbar :height='contentHeight'>
+							<router-view v-slot='{ Component }'>
+								<transition name='fade'>
+									<keep-alive :max='10'>
+										<component :is='Component'></component>
+									</keep-alive>
+								</transition>
+							</router-view>
+						</el-scrollbar>
+					</div>
 				</el-main>
 			</el-container>
 		</el-container>
@@ -28,8 +32,15 @@ import Menu from '@/layouts/components/Menu/index.vue';
 import Tabs from '@/layouts/components/Tabs/index.vue';
 import useGlobalStore from '@/stores/global';
 import { storeToRefs } from 'pinia';
+import { onMounted, ref } from 'vue';
 
 const { menuWidth } = storeToRefs(useGlobalStore());
+const contentHeight = ref('');
+onMounted(() => {
+	console.log(window.screen.height);
+	console.log(document.documentElement.clientHeight);
+	contentHeight.value = document.documentElement.clientHeight - 130 + 'px';
+});
 </script>
 <style scoped lang='scss'>
 .layouts {
