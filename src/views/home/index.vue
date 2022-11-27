@@ -2,7 +2,7 @@
 	<div class='home'>
 		<HomeCard />
 		<HomeNavs />
-		<homeChart />
+		<homeChart v-permission="['getStatistics3,GET']" />
 	</div>
 </template>
 <script lang='ts' setup>

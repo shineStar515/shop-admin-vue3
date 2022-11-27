@@ -7,6 +7,8 @@ import 'nprogress/nprogress.css';
 import pinia from '@/stores';
 import App from './App.vue';
 import router from './router';
+// @ts-ignore
+import permission from '@/directives/permission';
 
 const app = createApp(App);
 Object.keys(Icons).forEach(key => {
@@ -14,5 +16,5 @@ Object.keys(Icons).forEach(key => {
 });
 app.use(pinia);
 app.use(router);
-
+app.use(permission);
 app.mount('#app');
