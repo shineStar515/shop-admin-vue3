@@ -35,10 +35,9 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 
 const { menuWidth } = storeToRefs(useGlobalStore());
+//动态设置内容高度
 const contentHeight = ref('');
 onMounted(() => {
-	console.log(window.screen.height);
-	console.log(document.documentElement.clientHeight);
 	contentHeight.value = document.documentElement.clientHeight - 130 + 'px';
 });
 </script>
