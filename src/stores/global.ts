@@ -8,9 +8,10 @@ const useGlobalStore = defineStore('global', {
 	state: (): IGlobalStore => ({
 		shopAdminToken: '', //用户token
 		userInfo: { menus: [] }, //用户信息
-		menuWidth: '250px', //菜单宽度
 		menus: [],
-		ruleNames: []
+		ruleNames: [],
+		menuWidth: '250px', //菜单宽度
+		visibleHeight: '' //可视区高度
 	}),
 	actions: {
 		//setToken
@@ -34,6 +35,10 @@ const useGlobalStore = defineStore('global', {
 		//修改菜单宽度
 		changeMenuWidthAction() {
 			this.menuWidth = this.menuWidth === '250px' ? '64px' : '250px';
+		},
+		//获取可视区高度
+		getVisibleHeight() {
+			this.visibleHeight = document.documentElement.clientHeight - 150 + 'px';
 		}
 	},
 	persist: piniaPersistConfig('global', ['shopAdminToken', 'ruleNames'])

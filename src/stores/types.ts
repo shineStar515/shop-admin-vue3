@@ -4,4 +4,5 @@ export interface IGlobalStore {
 	menuWidth: string;
 	menus: any[];
 	ruleNames: any[];
+	visibleHeight: string;
 }

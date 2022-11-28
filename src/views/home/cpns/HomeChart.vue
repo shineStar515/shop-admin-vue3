@@ -75,7 +75,6 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 const goods = ref();
 const order = ref();
 getStatistics2().then(({ data }) => {
-	console.log(data);
 	goods.value = data.goods;
 	order.value = data.order;
 });

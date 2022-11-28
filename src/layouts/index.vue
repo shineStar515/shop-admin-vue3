@@ -11,7 +11,7 @@
 				<el-main class='el-main'>
 					<Tabs />
 					<div style='padding-top: 20px'>
-						<el-scrollbar :height='contentHeight'>
+						<el-scrollbar :height='visibleHeight'>
 							<router-view v-slot='{ Component }'>
 								<transition name='fade'>
 									<keep-alive :max='10'>
@@ -32,14 +32,8 @@ import Menu from '@/layouts/components/Menu/index.vue';
 import Tabs from '@/layouts/components/Tabs/index.vue';
 import useGlobalStore from '@/stores/global';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
 
-const { menuWidth } = storeToRefs(useGlobalStore());
-//动态设置内容高度
-const contentHeight = ref('');
-onMounted(() => {
-	contentHeight.value = document.documentElement.clientHeight - 130 + 'px';
-});
+const { menuWidth, visibleHeight } = storeToRefs(useGlobalStore());
 </script>
 <style scoped lang='scss'>
 .layouts {
