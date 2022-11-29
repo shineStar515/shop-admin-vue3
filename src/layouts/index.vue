@@ -11,7 +11,7 @@
 				<el-main class='el-main'>
 					<Tabs />
 					<div style='padding-top: 20px'>
-						<el-scrollbar :height='visibleHeight'>
+						<el-scrollbar :height="visibleHeight + 'px'">
 							<router-view v-slot='{ Component }'>
 								<transition name='fade'>
 									<keep-alive :max='10'>
@@ -32,10 +32,16 @@ import Menu from '@/layouts/components/Menu/index.vue';
 import Tabs from '@/layouts/components/Tabs/index.vue';
 import useGlobalStore from '@/stores/global';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
 const { menuWidth, visibleHeight } = storeToRefs(useGlobalStore());
+const countVisibleHeight = computed(() => visibleHeight.value + 'px');
 </script>
 <style scoped lang='scss'>
+:deep(.el-scrollbar__view) {
+	height: v-bind(countVisibleHeight);
+}
+
 .layouts {
 	box-sizing: border-box;
 	width: 100%;

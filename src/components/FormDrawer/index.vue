@@ -1,16 +1,17 @@
 <template>
 	<div class='drawer' v-if='dialog'>
 		<el-drawer v-model='dialog' direction='rtl' :close-on-click-modal='false' custom-class='demo-drawer' size='40%'>
-			<template #header><h3 style='color: #6366f1'>修改密码</h3></template>
+			<template #header
+			><h3 style='color: #6366f1; text-align: center'>{{ title }}</h3></template
+			>
 			<div class='demo-drawer__content'>
-				<el-scrollbar height='460px'>
+				<el-scrollbar height='461px'>
 					<slot name='content'></slot>
 				</el-scrollbar>
 				<div class='demo-drawer__footer'>
 					<slot name='footer'>
 						<el-button @click='close' size='large' plain>取消</el-button>
-						<el-button type='primary' :loading='loading' size='large' @click='handleInputClick()'>{{ title }}
-						</el-button>
+						<el-button type='primary' :loading='loading' size='large' @click='handleInputClick()'>{{ text }}</el-button>
 					</slot>
 				</div>
 			</div>
@@ -35,6 +36,10 @@ function handleInputClick() {
 defineProps({
 	title: {
 		type: String,
+		default: '默认标题'
+	},
+	text: {
+		type: String,
 		default: '提交'
 	}
 });
@@ -46,7 +51,12 @@ defineExpose({
 });
 </script>
 <style scoped lang='scss'>
+:deep(.el-scrollbar__view) {
+	height: 460px !important;
+}
+
 .drawer {
+	box-sizing: border-box;
 	position: absolute;
 	top: 0;
 	right: 0;

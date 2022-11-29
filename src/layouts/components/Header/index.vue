@@ -40,7 +40,7 @@
 				</template>
 			</el-dropdown>
 		</div>
-		<FormDrawer ref='formDrawerRef' title='修改' @submit='handleResetPWDClick(resetFormRef)'>
+		<FormDrawer ref='formDrawerRef' title='修改密码' text='修改' @submit='handleResetPWDClick(resetFormRef)'>
 			<template #content>
 				<el-form
 					ref='resetFormRef'

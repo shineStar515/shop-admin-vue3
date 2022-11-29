@@ -12,6 +12,12 @@
 import { RouterView } from 'vue-router';
 import { ElConfigProvider } from 'element-plus';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import useGlobalStore from '@/stores/global';
+//页面缩放时重新计算可视化高度
+window.addEventListener('resize', function() {
+	useGlobalStore().getVisibleHeight();
+	console.log('页面缩放变化了');
+});
 </script>
 
 <style lang="scss">

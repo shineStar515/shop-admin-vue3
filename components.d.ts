@@ -18,19 +18,23 @@ declare module '@vue/runtime-core' {
 		ElCheckTag: typeof import('element-plus/es')['ElCheckTag'];
 		ElCol: typeof import('element-plus/es')['ElCol'];
 		ElContainer: typeof import('element-plus/es')['ElContainer'];
+		ElDialog: typeof import('element-plus/es')['ElDialog'];
 		ElDivider: typeof import('element-plus/es')['ElDivider'];
 		ElDrawer: typeof import('element-plus/es')['ElDrawer'];
 		ElDropdown: typeof import('element-plus/es')['ElDropdown'];
 		ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem'];
 		ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu'];
+		ElFooter: typeof import('element-plus/es')['ElFooter'];
 		ElForm: typeof import('element-plus/es')['ElForm'];
 		ElFormItem: typeof import('element-plus/es')['ElFormItem'];
 		ElHeader: typeof import('element-plus/es')['ElHeader'];
 		ElIcon: typeof import('element-plus/es')['ElIcon'];
 		ElInput: typeof import('element-plus/es')['ElInput'];
+		ElInputNumber: typeof import('element-plus/es')['ElInputNumber'];
 		ElMain: typeof import('element-plus/es')['ElMain'];
 		ElMenu: typeof import('element-plus/es')['ElMenu'];
 		ElMenuItem: typeof import('element-plus/es')['ElMenuItem'];
+		ElPagination: typeof import('element-plus/es')['ElPagination'];
 		ElRow: typeof import('element-plus/es')['ElRow'];
 		ElScrollbar: typeof import('element-plus/es')['ElScrollbar'];
 		ElSkeleton: typeof import('element-plus/es')['ElSkeleton'];
@@ -41,6 +45,10 @@ declare module '@vue/runtime-core' {
 		ElTag: typeof import('element-plus/es')['ElTag'];
 		ElTooltip: typeof import('element-plus/es')['ElTooltip'];
 		FormDrawer: typeof import('./src/components/FormDrawer/index.vue')['default'];
+		ImageAddForm: typeof import('./src/components/ImageManage/cpns/ImageAddForm.vue')['default'];
+		ImageAside: typeof import('./src/components/ImageManage/cpns/ImageAside.vue')['default'];
+		ImageMain: typeof import('./src/components/ImageManage/cpns/ImageMain.vue')['default'];
+		ImageManage: typeof import('./src/components/ImageManage/index.vue')['default'];
 		RouterLink: typeof import('vue-router')['RouterLink'];
 		RouterView: typeof import('vue-router')['RouterView'];
 	}

@@ -11,7 +11,7 @@ const useGlobalStore = defineStore('global', {
 		menus: [],
 		ruleNames: [],
 		menuWidth: '250px', //菜单宽度
-		visibleHeight: '' //可视区高度
+		visibleHeight: 0 //可视区高度
 	}),
 	actions: {
 		//setToken
@@ -38,7 +38,7 @@ const useGlobalStore = defineStore('global', {
 		},
 		//获取可视区高度
 		getVisibleHeight() {
-			this.visibleHeight = document.documentElement.clientHeight - 150 + 'px';
+			this.visibleHeight = document.documentElement.clientHeight - 150;
 		}
 	},
 	persist: piniaPersistConfig('global', ['shopAdminToken', 'ruleNames'])

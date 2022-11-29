@@ -1,5 +1,10 @@
 <template>
-	<div class='goods'>11</div>
+	<div class='notice'></div>
 </template>
-
-<style scoped></style>
+<script lang='ts' setup></script>
+<style scoped lang='scss'>
+.notice {
+	box-sizing: border-box;
+	height: 100%;
+}
+</style>
